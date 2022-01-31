@@ -1,6 +1,6 @@
 ### Starting the API
 
-Open a terminal window and go to the `prop-be-gone-api` directory.
+Open a terminal window and go to the `prop-b-gone-api` directory.
 
 1. `cd api`
 1. `json-server database.json`
