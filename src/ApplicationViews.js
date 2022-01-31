@@ -2,7 +2,7 @@ import React from "react"
 import { Route } from "react-router-dom"
 import { DisposalList } from "./components/DisposalList"
 import { HistoryList } from "./components/HistoryList"
-import { InventoryList } from "./components/inventory/InventoryList"
+import { InventoryRoutes } from "./InventoryRoutes"
 
 export const ApplicationViews = () => {
     return (
@@ -11,7 +11,7 @@ export const ApplicationViews = () => {
                 <DisposalList />
             </Route>
             <Route path="/inventory">
-                <InventoryList />
+                <InventoryRoutes />
             </Route>
             <Route path="/history">
                 <HistoryList />
