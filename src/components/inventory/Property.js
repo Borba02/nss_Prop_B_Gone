@@ -1,23 +1,30 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 
-export const Property = ({prop}) => {
+
+export const Property = ({prop, deleteProp}) => {
+
+    const [deletedProp, setDeletedProp] = useState(0)
     
-    return (
-        
-            <p className="property">
-               
+    useEffect(() => {
+        fetch(`http://localhost:8088/storedProperty/${prop.id}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setDeletedProp(data);
+          });
+      }, []);
 
-                   
+    return (
+            <>
+            <p className="property">         
                         --- <br/>VIN:{prop.vin} <br/>
                         SECT: {prop.location?.name}<br/> 
                         Stored: {prop.storedDate} <br/>
-                        Status: {prop.onHold ? `On Hold` : `Cleared`}
-                   
-                
-               
+                        Status: {prop.onHold ? `On Hold` : `Cleared`}   
             </p>
+            <button className="btn--propertyDelete" onClick={() => deleteProp(prop.id)} >Delete</button>
        
+            </>
     )
     
 }

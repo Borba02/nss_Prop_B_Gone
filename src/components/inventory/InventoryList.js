@@ -15,6 +15,20 @@ export const InventoryList = () => {
             updateProperty(PropertyArray)
         })
     }, [])
+
+    const deleteProp = (id) => {
+        fetch(`http://localhost:8088/storedProperty/${id}`,{
+            method: "DELETE"
+        })
+        .then(() => {  
+            fetch("http://localhost:8088/storedProperty?_expand=location&_expand=user")
+        .then((res) => res.json())
+        .then((PropertyArray) => {
+            updateProperty(PropertyArray)
+        })
+    }, [])
+            
+    }
     
     
     return (
@@ -22,7 +36,7 @@ export const InventoryList = () => {
             <button onClick={() => history.push("/inventory/propertyForm")}>New Property</button>
             <div className="property">
                 {
-                    props.map(a => <Property key={a.id} prop={a}/>)
+                    props.map(a => <Property key={a.id} prop={a} deleteProp={deleteProp}/>)
                 }
             </div>
            
