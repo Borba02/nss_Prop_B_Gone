@@ -6,9 +6,11 @@ import { PropBGone } from './Prop-B-Gone.js';
 import {BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <PropBGone />
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <PropBGone />
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

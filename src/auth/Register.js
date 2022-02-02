@@ -2,14 +2,14 @@ import React, { useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./login.css"
 
-export const Register = (props) => {
+export const Register = () => {
     const [user, setUser] = useState({})
     const conflictDialog = useRef()
 
     const history = useHistory()
 
     const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/customers?email=${user.email}`)
+        return fetch(`http://localhost:8088/users?email=${user.email}`)
             .then(res => res.json())
             .then(data => !!data.length)
     }
@@ -54,16 +54,12 @@ export const Register = (props) => {
             </dialog>
 
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for Honey Rae Repairs</h1>
+                <h1 className="h3 mb-3 font-weight-normal">Please Register for Prop-B-Gone</h1>
                 <fieldset>
                     <label htmlFor="name"> Full Name </label>
                     <input onChange={updateUser}
                            type="text" id="name" className="form-control"
                            placeholder="Enter your name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="address"> Address </label>
-                    <input onChange={updateUser} type="text" id="address" className="form-control" placeholder="Street address" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email"> Email address </label>
