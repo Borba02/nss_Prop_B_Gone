@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 
 export const PropertyForm = () => {
@@ -12,7 +12,16 @@ export const PropertyForm = () => {
         locationId: 0
     })
 
-    const [locations, addLocations] = useState ({})
+    const [locations, addLocation] = useState ([])
+    const [currentLoc, setCurrentLoc] = useState ([])
+
+    useEffect(() => {
+        fetch("http://localhost:8088/locations")
+          .then((res) => res.json())
+          .then((data) => {
+            addLocation(data);
+          });
+      }, []);
 
     const history = useHistory()
 
@@ -26,7 +35,7 @@ export const PropertyForm = () => {
         onHold: property.onHold,
         disposedOf: "",
         userId: parseInt(localStorage.getItem("pbg_user")),
-        locationId: property.locationId
+        locationId: currentLoc
     }
 
     const fetchOption = {
@@ -37,11 +46,16 @@ export const PropertyForm = () => {
         body: JSON.stringify(newProperty)
     }
 
-    return fetch("http://localhost:8088/storedProperty", fetchOption)
+    return fetch("http://localhost:8088/storedProperty?_expand=location", fetchOption)
         .then(() => 
             history.push("/inventory")
     )
 }
+
+const UserLocInput = (event) => {
+    setCurrentLoc(parseInt(event.target.value));
+  };
+
     return (
         <form className="propertyForm">
             <h2 className="propertyForm_title">Add New Prop</h2>
@@ -90,17 +104,13 @@ export const PropertyForm = () => {
             <fieldset>
                 <label htmlFor="location">Location:</label>
                 <select required name="location" className="form-control" 
-                onClick={(evt) => {
-                    const copy = { ...property }
-                    copy.locationId = evt.target.value
-                    addProperty(copy)
-                }}>
+                onChange={UserLocInput}>
                 <option value="0">Select a location</option>
-                    {locations.map((location) => {
-                        <option value={location.id}>
-                            {location.name}
+                    {locations.map((location) => (
+                        <option key={location.id} value={location.id}>
+                          {location.name}
                         </option>
-                    })}                    
+                    ))}                  
 
                 </select>
             </fieldset>
