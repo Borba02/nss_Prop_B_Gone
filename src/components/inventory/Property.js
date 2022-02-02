@@ -2,16 +2,7 @@ import React from "react"
 
 
 export const Property = ({prop}) => {
-    // const [props, updateProperty] = useState([])
-
-    // useEffect(() => {
-    //     fetch("http://localhost:8088/storedProperty?_expand=location&_expand=user")
-    //     .then((res) => res.json())
-    //     .then((PropertyArray) => {
-    //         updateProperty(PropertyArray)
-    //     })
-    // }, [])
-
+    
     return (
         
             <p className="property">
@@ -21,7 +12,7 @@ export const Property = ({prop}) => {
                         --- <br/>VIN:{prop.vin} <br/>
                         SECT: {prop.location?.name}<br/> 
                         Stored: {prop.storedDate} <br/>
-                        Status: {prop.onHold ? `On Hold` : ``}
+                        Status: {prop.onHold ? `On Hold` : `Cleared`}
                    
                 
                
