@@ -1,18 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 
 
 export const Property = ({prop, deleteProp}) => {
 
-    const [deletedProp, setDeletedProp] = useState(0)
-    
-    useEffect(() => {
-        fetch(`http://localhost:8088/storedProperty/${prop.id}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setDeletedProp(data);
-          });
-      }, []);
+    const CurrentUser = parseInt(localStorage.getItem("pbg_user"))
 
     return (
             <>
@@ -22,7 +14,11 @@ export const Property = ({prop, deleteProp}) => {
                         Stored: {prop.storedDate} <br/>
                         Status: {prop.onHold ? `On Hold` : `Cleared`}   
             </p>
-            <button className="btn--propertyDelete" onClick={() => deleteProp(prop.id)} >Delete</button>
+           { 
+                prop.userId === CurrentUser  ? 
+                    <button className="btn--propertyDelete" onClick={() => deleteProp(prop.id)} >Delete</button> 
+                : "" 
+            }
        
             </>
     )
