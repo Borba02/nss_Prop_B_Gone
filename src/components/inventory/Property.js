@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 
 export const Property = ({prop}) => {
-    const [props, updateProperty] = useState([])
+    // const [props, updateProperty] = useState([])
 
-    useEffect(() => {
-        fetch("http://localhost:8088/storedProperty?_expand=location&_expand=user")
-        .then((res) => res.json())
-        .then((PropertyArray) => {
-            updateProperty(PropertyArray)
-        })
-    }, [])
+    // useEffect(() => {
+    //     fetch("http://localhost:8088/storedProperty?_expand=location&_expand=user")
+    //     .then((res) => res.json())
+    //     .then((PropertyArray) => {
+    //         updateProperty(PropertyArray)
+    //     })
+    // }, [])
 
     return (
         
@@ -18,7 +18,10 @@ export const Property = ({prop}) => {
                
 
                    
-                        --- {prop.vin} {prop.location?.name} {prop.storedDate} {prop.onHold ? `On Hold` : ``}
+                        --- <br/>VIN:{prop.vin} <br/>
+                        SECT: {prop.location?.name}<br/> 
+                        Stored: {prop.storedDate} <br/>
+                        Status: {prop.onHold ? `On Hold` : ``}
                    
                 
                
