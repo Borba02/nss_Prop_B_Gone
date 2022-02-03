@@ -1,10 +1,12 @@
 import React from "react"
+import { useLocation } from "react-router-dom"
 
 
 
 export const Property = ({prop, deleteProp}) => {
 
     const CurrentUser = parseInt(localStorage.getItem("pbg_user"))
+    const Loc = useLocation()
 
     return (
             <>
@@ -15,7 +17,7 @@ export const Property = ({prop, deleteProp}) => {
                         Status: {prop.onHold ? `On Hold` : `Cleared`}   
             </p>
            { 
-                prop.userId === CurrentUser  ? 
+                prop.userId === CurrentUser && Loc.pathname === "/inventory"  ? 
                     <button className="btn--propertyDelete" onClick={() => deleteProp(prop.id)} >Delete</button> 
                 : "" 
             }
@@ -25,20 +27,3 @@ export const Property = ({prop, deleteProp}) => {
     
 }
 
-//* Changes date to a timestamp
-// const toTimestamp = (date) => {
-//     const myDate = date.split("-")
-//     const newTimestamp = new Date(myDate).getTime()
-//     return newTimestamp
-// }
-//* Makes human numbers out of a timestamp
-// const humanDate = (object) => {
-//     const format = {
-//         day: "numeric",
-//         month: "2-digit",
-//         year: "numeric",
-//       };
-//    return( new Date(object.timestamp).toLocaleString(
-//     "en-us",
-//     format
-//   ))}

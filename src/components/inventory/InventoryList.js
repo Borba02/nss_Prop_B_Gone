@@ -15,7 +15,7 @@ export const InventoryList = () => {
             updateProperty(PropertyArray)
         })
     }, [])
-
+    
     const deleteProp = (id) => {
         fetch(`http://localhost:8088/storedProperty/${id}`,{
             method: "DELETE"
@@ -27,10 +27,7 @@ export const InventoryList = () => {
             updateProperty(PropertyArray)
         })
     }, [])
-            
-    }
-    
-    
+}
     return (
         <>
             <button onClick={() => history.push("/inventory/propertyForm")}>New Property</button>
@@ -43,3 +40,20 @@ export const InventoryList = () => {
         </>
     )
 }
+//* Changes date to a timestamp
+// const toTimestamp = (date) => {
+//     const myDate = date.split("-")
+//     const newTimestamp = new Date(myDate).getTime()
+//     return newTimestamp
+// }
+//* Makes human numbers out of a timestamp
+// const humanDate = (object) => {
+//     const format = {
+//         day: "numeric",
+//         month: "2-digit",
+//         year: "numeric",
+//       };
+//    return( new Date(object.timestamp).toLocaleString(
+//     "en-us",
+//     format
+//   ))}
