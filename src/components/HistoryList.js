@@ -7,7 +7,7 @@ export const HistoryList = () => {
            
             
                 <div>
-                    Yo
+                    Under Construction
                 </div>
             
             
