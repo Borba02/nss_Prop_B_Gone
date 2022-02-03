@@ -3,17 +3,15 @@ import { useHistory } from "react-router-dom"
 
 export const PropertyForm = () => {
     const [property, addProperty] = useState({
-        id: null,
         vin: "",
         storedDate: "",
         onHold: false,
         disposedOf: "",
         userId: null,
-        locationId: 0
+        locationId: null
     })
 
     const [locations, addLocation] = useState ([])
-    const [currentLoc, setCurrentLoc] = useState ([])
 
     useEffect(() => {
         fetch("http://localhost:8088/locations")
@@ -28,14 +26,13 @@ export const PropertyForm = () => {
     const saveProperty = (evt) => {
         evt.preventDefault()
 
-    const newProperty = {
-        id: property.id,
+    const newProperty = {       
         vin: property.vin,
         storedDate: property.storedDate,
         onHold: property.onHold,
         disposedOf: "",
         userId: parseInt(localStorage.getItem("pbg_user")),
-        locationId: currentLoc
+        locationId: property.locationId
     }
 
     const fetchOption = {
@@ -51,10 +48,6 @@ export const PropertyForm = () => {
             history.push("/inventory")
     )
 }
-
-const UserLocInput = (event) => {
-    setCurrentLoc(parseInt(event.target.value));
-  };
 
     return (
         <form className="propertyForm">
@@ -79,7 +72,7 @@ const UserLocInput = (event) => {
             <fieldset>
                     <div className="form-group">
                         <label htmlFor="dateStored">Date Stored:</label>
-                        <input type="date" id="" placeholder="Select Date" 
+                        <input required type="date" id="" placeholder="Select Date" 
                         onChange={(evt) => {
                             const copy = { ...property }
                             copy.storedDate = evt.target.value
@@ -104,7 +97,11 @@ const UserLocInput = (event) => {
             <fieldset>
                 <label htmlFor="location">Location:</label>
                 <select required name="location" className="form-control" 
-                onChange={UserLocInput}>
+                onChange={(evt) => {
+                    const copy = { ...property }
+                    copy.locationId = parseInt(evt.target.value)
+                    addProperty(copy)
+                }}>
                 <option value="0">Select a location</option>
                     {locations.map((location) => (
                         <option key={location.id} value={location.id}>
