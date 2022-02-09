@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 
 
 
-export const Property = ({prop, deleteProp, disposeProp}) => {
+export const Property = ({prop, deleteProp, disposeProp, restoreProp}) => {
 
     const CurrentUser = parseInt(localStorage.getItem("pbg_user"))
     const Loc = useLocation()
@@ -21,7 +21,7 @@ export const Property = ({prop, deleteProp, disposeProp}) => {
             </p> : ""
             }
             {
-            Loc.pathname === "/inventory" ? 
+            Loc.pathname === "/inventory" && prop.disposedOf === "" ? 
             <p className="property">         
                         --- <br/>VIN:{prop.vin} <br/>
                         SECT: {prop.location?.name}<br/> 
@@ -55,6 +55,11 @@ export const Property = ({prop, deleteProp, disposeProp}) => {
                 Loc.pathname === "/disposal" && prop.disposedOf === ""  ? 
                     <button className="btn--propertyDisposed" onClick={() => disposeProp(prop.id)} >Mark Disposed</button> 
                 : "" 
+            }
+            {
+                Loc.pathname === "/history" && prop.disposedOf != "" ? 
+                <button className="btn--propertyRestore" onClick={() => restoreProp(prop.id)} >Restore</button>
+             : ""
             }
        
             </>
