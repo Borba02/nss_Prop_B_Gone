@@ -11,7 +11,7 @@ export const Property = ({prop, deleteProp, disposeProp, restoreProp}) => {
     return (
             <>
             {
-            Loc.pathname === "/history" && prop.disposedOf != "" ? 
+            Loc.pathname === "/history" && prop.disposedOf !== "" ? 
             <p className="property">         
                         --- <br/>VIN:{prop.vin} <br/>
                         SECT: {prop.location?.name}<br/> 
@@ -47,7 +47,7 @@ export const Property = ({prop, deleteProp, disposeProp, restoreProp}) => {
                 : "" 
             }
            { 
-                prop.disposedOf != "" && Loc.pathname === "/history"  ? 
+                prop.disposedOf !== "" && Loc.pathname === "/history"  ? 
                     <button className="btn--propertyDelete" onClick={() => deleteProp(prop.id)} >Delete</button> 
                 : "" 
             }
@@ -57,7 +57,7 @@ export const Property = ({prop, deleteProp, disposeProp, restoreProp}) => {
                 : "" 
             }
             {
-                Loc.pathname === "/history" && prop.disposedOf != "" ? 
+                Loc.pathname === "/history" && prop.disposedOf !== "" ? 
                 <button className="btn--propertyRestore" onClick={() => restoreProp(prop.id)} >Restore</button>
              : ""
             }
